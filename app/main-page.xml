@@ -1,30 +1,53 @@
-<!--
-The markup in NativeScript apps contains a series of user interface components, each
-of which NativeScript renders with a platform-specific iOS or Android native control.
-You can find a full list of user interface components you can use in your app at
-https://docs.nativescript.org/ui/components.
--->
 <Page xmlns="http://schemas.nativescript.org/tns.xsd" navigatingTo="onNavigatingTo">
-    <!--
-    The ActionBar is the NativeScript common abstraction over the Android ActionBar and iOS NavigationBar.
-    http://docs.nativescript.org/ui/action-bar
-    -->
-    <ActionBar title="My App" icon="" />
+    <ActionBar title="Pace Calculator" class="bg-page text-white" flat="true" />
 
-    <!--
-    The StackLayout stacks UI components on the screen—either vertically or horizontally.
-    In this case, the StackLayout does vertical stacking; you can change the stacking to
-    horizontal by applying a orientation="horizontal" attribute to the <StackLayout> element.
-    You can learn more about NativeScript layouts at
-    https://docs.nativescript.org/ui/layout-containers.
-
-    These components make use of the NativeScript core theme, which styles them with element selectors.
-    The theme also provides a set of helper class names such as p-20, h1, h2, and text-center to enhance styling.
-    You can learn more about the NativeScript core theme at https://github.com/nativescript/theme
-    -->
-    <StackLayout class="p-20">
-        <Label text="Tap the button" class="h1 text-center" />
-        <Button text="TAP" tap="{{ onTap }}" class="-primary" />
-        <Label text="{{ message }}" class="h2 text-center" textWrap="true" />
-    </StackLayout>
+    <GridLayout rows="auto, *, auto" class="bg-page">
+        <Label row="0" class="text-center text-white py-1" text="Double tap a result to toggle focus" />
+        <ScrollView row="1" verticalAlignment="bottom" class="mb-5">
+            <Repeater items="{{ results }}">
+                <Repeater.itemsLayout>
+                    <FlexboxLayout flexDirection="column" />
+                </Repeater.itemsLayout>
+                <Repeater.itemTemplate>
+                    <FlexboxLayout class="{{ $parents['Repeater'],
+                    'py-1'
+                    + (id % 2 === 1 || id === $parents['Repeater'].focusId ? ' bg-green-600' : ' bg-page')
+                    }}"
+                    doubleTap="setFocusId"
+                    visibility="{{ $parents['Repeater'], $parents['Repeater'].focusId === null || $parents['Repeater'].focusId === id ? 'visible' : 'collapse' }}">
+                        <Label class="text-lg text-gray-50 mt-1 font-bold text-right" width="50%" text="{{ type + ' :' }}" />
+                        <Label class="text-lg text-gray-50 mt-1" text="{{ '  ' + result }}" />
+                    </FlexboxLayout>
+                </Repeater.itemTemplate>
+            </Repeater>
+        </ScrollView>
+        <FlexboxLayout flexDirection="column" row="2">
+            <StackLayout orientation="horizontal" alignSelf="center">
+                <Label tap="{{ setUseKm }}" class="{{ useKm ? 'bg-blue-500 text-gray-50 text-lg p-2' : 'bg-gray-600 text-gray-50 text-lg p-2' }}" text="min/km" />
+                <Label tap="{{ setUseMi }}" class="{{ !useKm ? 'bg-blue-500 text-gray-50 text-lg p-2' : 'bg-gray-600 text-gray-50 text-lg p-2' }}" text="min/mi" />
+            </StackLayout>
+            <FlexboxLayout>
+                <StackLayout flexGrow="1">
+                    <Label class="text-lg text-gray-50 dark:text-white mt-1 font-bold"
+                        horizontalAlignment="center"
+                        text="Enter Pace" />
+                    <TextField
+                        class="rounded-lg text-lg text-center bg-blue-950 text-gray-50 border-2 border-gray-400 mt-2 ml-4 mr-2"
+                        keyboardType="datetime"
+                        text="{{ pace }}" />
+                        <Label class="text-blue-200 text-center mb-5 font-bold px-5 py-2" tap="{{ clearPace }}" text="Clear" />
+                </StackLayout>
+                <StackLayout flexGrow="1">
+                    <Label class="text-lg text-gray-50 dark:text-white mt-1 font-bold"
+                        horizontalAlignment="center"
+                        text="Enter Duration" />
+                    <TextField
+                        class="rounded-lg text-lg text-center bg-blue-950 text-gray-50 border-2 border-gray-400 mt-2 mr-4 ml-2"
+                        keyboardType="datetime"
+                        text="{{ duration }}" />
+                    <Label class="text-blue-200 text-center mb-5 font-bold px-5 py-2" tap="{{ clearDuration }}" text="Clear" />
+                </StackLayout>
+            </FlexboxLayout>
+        </FlexboxLayout>
+    </GridLayout>
 </Page>
