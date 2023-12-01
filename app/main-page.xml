@@ -23,17 +23,17 @@
         </ScrollView>
         <FlexboxLayout flexDirection="column" row="2">
             <StackLayout orientation="horizontal" alignSelf="center">
-                <Label tap="{{ setUseKm }}" class="{{ useKm ? 'bg-blue-500 text-gray-50 text-lg p-2' : 'bg-gray-600 text-gray-50 text-lg p-2' }}" text="min/km" />
-                <Label tap="{{ setUseMi }}" class="{{ !useKm ? 'bg-blue-500 text-gray-50 text-lg p-2' : 'bg-gray-600 text-gray-50 text-lg p-2' }}" text="min/mi" />
+                <Label tap="{{ setUseKm }}" class="{{ useKm ? 'bg-green-600 text-gray-50 text-lg p-2' : 'bg-gray-600 text-gray-50 text-lg p-2' }}" text="min/km" />
+                <Label tap="{{ setUseMi }}" class="{{ !useKm ? 'bg-green-600 text-gray-50 text-lg p-2' : 'bg-gray-600 text-gray-50 text-lg p-2' }}" text="min/mi" />
             </StackLayout>
-            <FlexboxLayout>
+            <FlexboxLayout class="mt-2">
                 <StackLayout flexGrow="1">
                     <Label class="text-lg text-gray-50 dark:text-white mt-1 font-bold"
                         horizontalAlignment="center"
                         text="Enter Pace" />
                     <TextField
                         class="rounded-lg text-lg text-center bg-blue-950 text-gray-50 border-2 border-gray-400 mt-2 ml-4 mr-2"
-                        keyboardType="datetime"
+                        keyboardType="datetime" height="40"
                         text="{{ pace }}" />
                         <Label class="text-blue-200 text-center mb-5 font-bold px-5 py-2" tap="{{ clearPace }}" text="Clear" />
                 </StackLayout>
@@ -43,7 +43,7 @@
                         text="Enter Duration" />
                     <TextField
                         class="rounded-lg text-lg text-center bg-blue-950 text-gray-50 border-2 border-gray-400 mt-2 mr-4 ml-2"
-                        keyboardType="datetime"
+                        keyboardType="datetime" height="40"
                         text="{{ duration }}" />
                     <Label class="text-blue-200 text-center mb-5 font-bold px-5 py-2" tap="{{ clearDuration }}" text="Clear" />
                 </StackLayout>
