@@ -3,6 +3,9 @@
   "main": "app/app.js",
   "version": "0.1.0",
   "private": true,
+  "repository": {
+    "url": "https://github.com/shiv19/pace-calculator.git"
+  },
   "dependencies": {
     "@nativescript/core": "^8.6.1",
     "@nativescript/iqkeyboardmanager": "^2.1.1",
