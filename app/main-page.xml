@@ -14,9 +14,10 @@
                         horizontalAlignment="center"
                         text="Enter Pace" />
                     <TextField
-                        class="rounded-lg text-lg text-center bg-blue-950 text-gray-50 border-2 border-gray-400 mt-2 ml-4 mr-2"
+                        class="rounded-lg placeholder-gray-500 text-lg text-center bg-blue-950 text-gray-50 border-2 border-gray-400 mt-2 ml-4 mr-2"
                         keyboardType="datetime" height="45"
-                        text="{{ pace }}" />
+                        hint="00:00"
+                        text="{{ pace, pace }}" />
                         <Label class="text-blue-200 text-center mb-2 font-bold px-5 py-2" tap="{{ clearPace }}" text="Clear" />
                 </StackLayout>
                 <StackLayout flexGrow="1">
@@ -24,9 +25,10 @@
                         horizontalAlignment="center"
                         text="Enter Duration" />
                     <TextField
-                        class="rounded-lg text-lg text-center bg-blue-950 text-gray-50 border-2 border-gray-400 mt-2 mr-4 ml-2"
+                        class="rounded-lg placeholder-gray-500 text-lg text-center bg-blue-950 text-gray-50 border-2 border-gray-400 mt-2 mr-4 ml-2"
                         keyboardType="datetime" height="45"
-                        text="{{ duration }}" />
+                        hint="00:00:00"
+                        text="{{ duration, duration }}" />
                     <Label class="text-blue-200 text-center mb-2 font-bold px-5 py-2" tap="{{ clearDuration }}" text="Clear" />
                 </StackLayout>
             </FlexboxLayout>
@@ -35,7 +37,7 @@
         <Label dock="top" class="text-center text-white py-1" text="Double tap a result to toggle focus" />
 
         <ScrollView verticalAlignment="bottom">
-            <Repeater items="{{ results }}">
+            <Repeater items="{{ results, results }}">
                 <Repeater.itemsLayout>
                     <FlexboxLayout flexDirection="column" />
                 </Repeater.itemsLayout>
