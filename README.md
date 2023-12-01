@@ -14,3 +14,7 @@ Clone the repo
 `ns run android`
 
 `ns run ios`
+
+## Screenshot
+
+![Screenshot](assets/demo.png)
