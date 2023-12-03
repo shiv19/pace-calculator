@@ -113,10 +113,18 @@ export function createViewModel() {
     if (paceParts.length > 3) {
       paceParts.length = 3
     }
-    const [seconds, minutes, hours] = paceParts.map((part) => parseInt(part, 10) || 0)
+    let [seconds, minutes, hours] = paceParts.map((part) => parseInt(part, 10) || 0)
     const paceInSeconds = seconds + (minutes ? (minutes * 60) : 0) + (hours ? (hours * 60 * 60) : 0)
 
     const timePerMeter = paceInSeconds / (viewModel.useKm ? 1000 : 1609)
+
+    const duration = viewModel.duration
+    const durationParts = duration.split(/[:.]/).reverse();
+    if (durationParts.length > 3) {
+      durationParts.length = 3
+    }
+    [seconds, minutes, hours] = durationParts.map((part) => parseInt(part, 10) || 0)
+    const durationInSeconds = seconds + (minutes ? (minutes * 60) : 0) + (hours ? (hours * 60 * 60) : 0)
 
     results.forEach((type) => {
 
@@ -128,20 +136,10 @@ export function createViewModel() {
         const s = Math.floor(timeInSeconds % 60);
 
         type.result = [h, m, s].map(v => v < 10 ? "0" + v : v).join(":");
-      } else {
-        const duration = viewModel.duration
-        const durationParts = duration.split(/[:.]/).reverse();
-        if (durationParts.length > 3) {
-          durationParts.length = 3
-        }
-        const [seconds, minutes, hours] = durationParts.map((part) => parseInt(part, 10) || 0)
-        const durationInSeconds = seconds + (minutes ? (minutes * 60) : 0) + (hours ? (hours * 60 * 60) : 0)
+      } else if (durationInSeconds) {
+        const distanceInMeters = durationInSeconds / timePerMeter
 
-        if (durationInSeconds) {
-          const distanceInMeters = durationInSeconds / timePerMeter
-
-          type.result = `${(distanceInMeters / (viewModel.useKm ? 1000 : 1609)).toFixed(2)} ${viewModel.useKm ? 'km' : 'mi'}`
-        }
+        type.result = `${(distanceInMeters / (viewModel.useKm ? 1000 : 1609)).toFixed(2)} ${viewModel.useKm ? 'km' : 'mi'}`
       }
     })
 
