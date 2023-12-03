@@ -108,16 +108,17 @@ export function createViewModel() {
     const pace = viewModel.pace
     const results = getResultsTemplate(viewModel.useKm)
 
-    results.forEach((type) => {
-      // split pace by : or .
-      const paceParts = pace.split(/[:.]/).reverse();
-      if (paceParts.length > 3) {
-        paceParts.length = 3
-      }
-      const [seconds, minutes, hours] = paceParts.map((part) => parseInt(part, 10) || 0)
-      const paceInSeconds = seconds + (minutes ? (minutes * 60) : 0) + (hours ? (hours * 60 * 60) : 0)
+    // split pace by : or .
+    const paceParts = pace.split(/[:.]/).reverse();
+    if (paceParts.length > 3) {
+      paceParts.length = 3
+    }
+    const [seconds, minutes, hours] = paceParts.map((part) => parseInt(part, 10) || 0)
+    const paceInSeconds = seconds + (minutes ? (minutes * 60) : 0) + (hours ? (hours * 60 * 60) : 0)
 
-      const timePerMeter = paceInSeconds / (viewModel.useKm ? 1000 : 1609)
+    const timePerMeter = paceInSeconds / (viewModel.useKm ? 1000 : 1609)
+
+    results.forEach((type) => {
 
       if (type.distanceInMeters) {
         const timeInSeconds = type.distanceInMeters * timePerMeter
